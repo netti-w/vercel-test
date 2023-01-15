@@ -15,7 +15,7 @@ const cors = require('cors');
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send('Welcome to my Movie database');
 });
 
 app.listen(port, () => {
