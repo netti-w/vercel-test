@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta URL="viewport" content="width=device-width, initial-scale=1">
+  <title>myFlix API Documentation</title>
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+
+<body>
+  <h1>myFlix API Documentation</h1>
+  <p>This is a REST API for an
+    application called “myFlix” that interacts with a database that
+    stores data about different movies.
+  </p>
+  <table class="table">
+    <thead>
+      <th>Business Logic</th>
+      <th>URL</th>
+      <th>HTTP Method</th>
+      <th>Request Body Data Format</th>
+      <th>Response Body Data Format</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td data-label="Action">Get a list of all movies</td>
+        <td data-label="URL">/movies</td>
+        <td data-label="Method"><button class="button-green">GET</button></td>
+        <td data-label="Req.Body">None</td>
+        <td data-label="Res.Body">
+          A JSON object holding data about all movies in the database.
+        </td>
+      </tr>
+      <tr>
+        <td data-label="Action">Get data about a single movie by movie title</td>
+        <td data-label="URL">/movies/[title]</td>
+        <td data-label="Method"><button class="button-green">GET</button></td>
+        <td data-label="Req.Body">None</td>
+        <td data-label="Res.Body">A JSON object holding data about a single
+          movie, containing title, director, release year, genre,
+          description, image path, featured and actor property. <br><br>
+          Example:
+          <pre><code>
+  {
+    _id: "62eac5ab1ef36b8f67491b05"
+    Title: "Midsommar",
+    Director: {
+      Name:"Ari Aster",
+      Bio: "Ari Aster is an American film director,
+      screenwriter, and producer.",
+      Birth: 1986
+    },
+    ReleaseYear: 2019,
+    Genre: {
+      Name: "Horror",
+      Description: "Horror is a genre of storytelling
+      intended to scare, shock, and thrill its audience."
+    },
+    Description: "A couple travels to Northern Europe
+    to visit a rural hometown's fabled
+    Swedish mid-summer festival.",
+    ImagePath: "https://m.media-amazon.com/images/...jpg",
+    Featured: true,
+    Actors: [
+      "Florence Pugh",
+      "Jack Reynor",
+      "Vilhelm Blomgren"
+      ]
+  }       </code></pre>
+        </td>
+      </tr>
+      <tr>
+        <td data-label="Action">Get data about a genre by name</td>
+        <td data-label="URL">/movies/genre/[genrename]</td>
+        <td data-label="Method"><button class="button-green">GET</button></td>
+        <td data-label="Req.Body">None</td>
+        <td data-label="Res.Body">
+          A JSON object holding data about a genre, containing name and
+          description property.<br><br>
+          Example:
+          <pre><code>
+  {
+    Name: "Horror",
+    Description: "Horror is a genre of storytelling
+    intended to scare, shock, and thrill its audience."
+  }         </code></pre>
+        </td>
+      </tr>
+      <tr>
+        <td data-label="Action">Get data about a director by name</td>
+        <td data-label="URL">/movies/directors/[directorname]</td>
+        <td data-label="Method"><button class="button-green">GET</button></td>
+        <td data-label="Req.Body">None</td>
+        <td data-label="Res.Body">
+          A JSON object holding data about a director,
+          containing bio, birth year property. <br><br>
+          Example:
+          <pre><code>
+  {
+    Name:"Ari Aster",
+    Bio: "Ari Aster is an American film director,
+    screenwriter, and producer.",
+    Birth: 1986
+  }       </code></pre>
+        </td>
+      </tr>
+      <tr>
+        <td data-label="Action">Add a new user</td>
+        <td data-label="URL">/users</td>
+        <td data-label="Method"><button class="button-yellow">POST</button></td>
+        <td data-label="Req.Body">
+          A JSON object holding data about a new user, structured like:
+          <pre><code>
+  {
+    Username: "Jane Doe",
+    Password: "password123",
+    Email: "j.doe@mail.com",
+    Birthday: new Date("1991-06-14"),
+    FavouriteMovies: []
+  }       </code></pre>
+        </td>
+        <td data-label="Res.Body">
+          A JSON object holding data about a new user, including an ID:
+          <pre><code>
+  {
+    Username: "Jane Doe",
+    Password: "password123",
+    Email: "j.doe@mail.com",
+    Birthday: new Date("1991-06-14"),
+    FavouriteMovies: []
+    _id: "62f106b3aa03383916db5809"
+  }       </code></pre>
+        </td>
+      </tr>
+      <tr>
+        <td data-label="Action">Update a user's info by user name</td>
+        <td data-label="URL">/users/[username]</td>
+        <td data-label="Method"><button class="button-blue">PUT</button></td>
+        <td data-label="Req.Body">
+          A JSON object holding data to be updated about the user:
+          <pre><code>
+  {
+    Username: 'Jane New Name Doe',
+    Password: "password123",
+    Email: "j.doe@mail.com"
+  }       </code></pre>
+        </td>
+        <td data-label="Res.Body">
+          A JSON object holding updated data about the user:
+          <pre><code>
+  {
+    Username: "Jane New Name Doe",
+    Password: "password123",
+    Email: "j.doe@mail.com",
+    Birthday: "1991-06-14T00:00:00.000Z",
+    FavouriteMovies: [],
+    _id: "62f106b3aa03383916db5809"
+  }        </code></pre>
+        </td>
+      </tr>
+      <tr>
+        <td data-label="Action">Add a user's favourite movie by movie ID</td>
+        <td data-label="URL">/users/[username]/movies/[movieid]</td>
+        <td data-label="Method"><button class="button-blue">PUT</button></td>
+        <td data-label="Req.Body">None</td>
+        <td data-label="Res.Body">
+          A JSON object holding data about the user, including movie ID in a
+          "FavouriteMovies" array:
+          <pre><code>
+  {
+    Username: "Jane New Name Doe",
+    Password: "password123",
+    Email: "j.doe@mail.com",
+    Birthday: "1991-06-14T00:00:00.000Z",
+    FavouriteMovies: [
+      "62eac5781ef36b8f67491b03"
+    ],
+    _id: "62f106b3aa03383916db5809"
+  }       </code></pre>
+        </td>
+      </tr>
+      <tr>
+        <td data-label="Action">Delete a user's favourite movie by title</td>
+        <td data-label="URL">/users/[username]/movies/[movieid]</td>
+        <td data-label="Method"><button class="button-red">DELETE</button></td>
+        <td data-label="Req.Body">None</td>
+        <td data-label="Res.Body">
+          A JSON object holding data about the user, excluding the movie ID
+          that has been removed:
+          <pre><code>
+  {
+    Username: "Jane New Name Doe",
+    Password: "password123",
+    Email: "j.doe@mail.com",
+    Birthday: "1991-06-14T00:00:00.000Z",
+    FavouriteMovies: [],
+    _id: "62f106b3aa03383916db5809"
+  }       </code></pre>
+        </td>
+      </tr>
+      <tr>
+        <td data-label="Action">Delete a user by user name</td>
+        <td data-label="URL">/users/[username]</td>
+        <td data-label="Method"><button class="button-red">DELETE</button></td>
+        <td data-label="Req.Body">None</td>
+        <td data-label="Res.Body">
+          A text message indicating whether the user was
+          successfully removed.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+
+</html>
