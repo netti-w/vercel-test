@@ -12,7 +12,7 @@ const Movies = Models.Movie;
 const Users = Models.User;
 
 // Connecting LOCAL myFlixDB via Mongoose to perform CRUD operations
-mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 const app = express();
 const port = 3000;
