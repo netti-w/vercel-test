@@ -19,7 +19,13 @@ mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnified
 
 const app = express();
 
+// Body parser middleware passing data as JSON
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// CORS - allowing requests from other specified origins (here: default all origins)
 const cors = require('cors');
+app.use(cors());
 
 // function serving all requests of static file (here:"documenation.html") from public folder
 app.use(express.static('public'));
