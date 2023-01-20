@@ -61,8 +61,8 @@ app.get('/', (req, res) => {
 // );
 
 app.get('/movies', (req, res) => {
-  res.send('GET movie endpoint')
-  // Movies.find().then(movies => res.json(movies));
+  // res.send('Worked: GET movie endpoint')
+  Movies.find().then(movies => res.json(movies));
 });
 
 
