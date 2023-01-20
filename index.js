@@ -114,7 +114,7 @@ app.get('/movies/directors/:directorName', passport.authenticate('jwt', { sessio
  * GET the list of all users
  * @returns an array of all user objects in JSON format
  */
-app.get('/users', (req, res) => {
+app.get('/users', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.find().then(users => res.json(users));
 });
 
@@ -123,7 +123,7 @@ app.get('/users', (req, res) => {
  * @params {string} Username
  * @returns a new user object in json format
  */
-app.get('/users/:Username', (req, res) => {
+app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOne({ Username: req.params.Username })
     .then((user) => {
       res.json(user);
@@ -187,7 +187,7 @@ app.post('/users',
  * @params {string} Email
  * @returns a new user object in JSON format
  */
-app.put('/users/:Username',
+app.put('/users/:Username', passport.authenticate('jwt', { session: false }),
   [
     check('Username', 'Username is required').isLength({ min: 5 }),
     check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
@@ -267,7 +267,7 @@ app.delete('/users/:Username/movies/:MovieID', (req, res) => {
  * @params {string} Username
  * @returns success message
  */
-app.delete('/users/:Username', (req, res) => {
+app.delete('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndRemove({ Username: req.params.Username })
     .then((user) => {
       if (!user) {
