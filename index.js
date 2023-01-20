@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // CORS - allowing requests from other specified origins (here: default all origins)
 const cors = require('cors');
 // app.use(cors());
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+let allowedOrigins = ['http://localhost:8080', 'https://vercel-test-netti-w.vercel.app', 'https://vercel-test-git-main-netti-w.vercel.app', 'https://vercel-test-virid-two.vercel.app'];
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin) return callback(null, true);
