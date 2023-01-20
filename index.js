@@ -44,25 +44,66 @@ app.use(cors({
 // function serving all requests of static file (here:"documenation.html") from public folder
 app.use(express.static('public'));
 
+// ----------------------- Homepage -----------------------
 app.get('/', (req, res) => {
   res.send('Welcome to my Movie database');
 });
 
-// app.get('/movies', (req, res) => {
-//   Movies.find()
-//     .then((movies) => {
-//       res.json(movies);
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//       res.status(500).send("Error: " + err);
-//     });
-// }
-// );
-
+// ----------------------- Movie endpoints -----------------------
+/** 
+ * GET the list of data about all movies
+ * @returns an array of all movies objects in json format 
+*/
 app.get('/movies', (req, res) => {
-  // res.send('Worked: GET movie endpoint')
   Movies.find().then(movies => res.json(movies));
+});
+
+/**
+ * GET data about a single movie by title
+ * @params {string} Title
+ * @returns a movie object in json format
+ */
+app.get('/movies/:Title', (req, res) => {
+  Movies.findOne({ Title: req.params.Title })
+    .then((movie) => {
+      res.json(movie);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
+/**
+ * GET data about a genre by name
+ * @params {string} genreName
+ * @returns a genre object in json format
+ */
+app.get('/movies/genres/:genreName', (req, res) => {
+  Movies.findOne({ "Genre.Name": req.params.genreName })
+    .then((movie) => {
+      res.json(movie.Genre);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
+/**
+ * GET data about a director by name
+ * @params {string} directorName
+ * @returns a director object in json format
+ */
+app.get('/movies/directors/:directorName', (req, res) => {
+  Movies.findOne({ "Director.Name": req.params.directorName })
+    .then((movie) => {
+      res.json(movie.Director);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 
