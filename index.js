@@ -17,8 +17,8 @@ require('dotenv').config();
 mongoose.set('strictQuery', true);
 
 // Connecting EXTERNAL (MongoDB Atlas) myFlixDB via Mongoose to perform CRUD operations
-// mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const app = express();
 
