@@ -18,7 +18,6 @@ const Users = Models.User;
 mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const app = express();
-const port = 3000;
 
 const cors = require('cors');
 
@@ -29,8 +28,18 @@ app.get('/', (req, res) => {
   res.send('Welcome to my Movie database');
 });
 
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`);
+
+
+// Error handling middleware logging app level errors
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
 });
+
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0', () => {
+  console.log('Listening on Port ' + port);
+});
+
 
 module.exports = app;
