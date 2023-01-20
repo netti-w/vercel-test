@@ -64,6 +64,14 @@ app.get('/movies', (req, res) => {
 //   Movies.find().then(movies => res.json(movies));
 // });
 
+app.use(express.static('public'));
+app.get('/documentation', (req, res) => {
+  res.sendFile('public/documentation.html', { root: __dirname });
+});
+
+//log requests using Morgan’s “common” format
+app.use(morgan('common'));
+
 // Error handling middleware logging app level errors
 app.use((err, req, res, next) => {
   console.error(err.stack);
