@@ -48,21 +48,23 @@ app.get('/', (req, res) => {
   res.send('Welcome to my Movie database');
 });
 
-app.get('/movies', (req, res) => {
-  Movies.find()
-    .then((movies) => {
-      res.json(movies);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
-}
-);
-
 // app.get('/movies', (req, res) => {
-//   Movies.find().then(movies => res.json(movies));
-// });
+//   Movies.find()
+//     .then((movies) => {
+//       res.json(movies);
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       res.status(500).send("Error: " + err);
+//     });
+// }
+// );
+
+app.get('/movies', (req, res) => {
+  res.send('GET movie endpoint')
+  // Movies.find().then(movies => res.json(movies));
+});
+
 
 app.use(express.static('public'));
 app.get('/documentation', (req, res) => {
