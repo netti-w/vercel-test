@@ -41,9 +41,21 @@ app.use(cors({
 // function serving all requests of static file (here:"documenation.html") from public folder
 app.use(express.static('public'));
 
-app.get('/', (req, res) => {
-  res.send('Welcome to my Movie database');
-});
+// app.get('/', (req, res) => {
+//   res.send('Welcome to my Movie database');
+// });
+
+app.get('/movies', (req, res) => {
+  Movies.find()
+    .then((movies) => {
+      res.status(201).json(movies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+}
+);
 
 app.get('/movies', (req, res) => {
   Movies.find().then(movies => res.json(movies));
