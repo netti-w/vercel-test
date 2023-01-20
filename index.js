@@ -15,7 +15,7 @@ const Users = Models.User;
 // mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Connecting EXTERNAL (MongoDB Atlas) myFlixDB via Mongoose to perform CRUD operations
-mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const app = express();
 
@@ -45,21 +45,21 @@ app.get('/', (req, res) => {
   res.send('Welcome to my Movie database');
 });
 
-app.get('/movies', (req, res) => {
-  Movies.find()
-    .then((movies) => {
-      res.status(201).json(movies);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
-}
-);
-
 // app.get('/movies', (req, res) => {
-//   Movies.find().then(movies => res.json(movies));
-// });
+//   Movies.find()
+//     .then((movies) => {
+//       res.status(201).json(movies);
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       res.status(500).send("Error: " + err);
+//     });
+// }
+// );
+
+app.get('/movies', (req, res) => {
+  Movies.find().then(movies => res.json(movies));
+});
 
 // Error handling middleware logging app level errors
 app.use((err, req, res, next) => {
