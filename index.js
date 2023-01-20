@@ -47,21 +47,21 @@ app.get('/', (req, res) => {
   res.send('Welcome to my Movie database');
 });
 
-// app.get('/movies', (req, res) => {
-//   Movies.find()
-//     .then((movies) => {
-//       res.status(201).json(movies);
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//       res.status(500).send("Error: " + err);
-//     });
-// }
-// );
-
 app.get('/movies', (req, res) => {
-  Movies.find().then(movies => res.json(movies));
-});
+  Movies.find()
+    .then((movies) => {
+      res.status(201).json(movies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+}
+);
+
+// app.get('/movies', (req, res) => {
+//   Movies.find().then(movies => res.json(movies));
+// });
 
 // Error handling middleware logging app level errors
 app.use((err, req, res, next) => {
